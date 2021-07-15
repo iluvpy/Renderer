@@ -1,11 +1,16 @@
 cflags = -std=c++17 -O0 -Wall -Werror -g -DDEBUG -I./src/
-lflags = -lGLEW -lglfw -lGL -ldl
+lflags =  -lglfw -lGL -ldl
 rule cc 
   command = clang++ -c $in -o $out $cflags
 rule lnk
   command = clang++ $in -o $out $lflags
 
+# build libs
+build obj/shader.o : cc src/lib/Shader.cpp
+build obj/vertexbuffer.o: cc src/lib/VertexBuffer.cpp
+
+# build main file
 build obj/main.o : cc src/main.cpp
 
 # build application
-build app : lnk obj/main.o obj/glad.o
+build client : lnk obj/main.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
