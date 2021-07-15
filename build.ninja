@@ -1,0 +1,11 @@
+cflags = -std=c++17 -O0 -Wall -Werror -g -DDEBUG -I./src/
+lflags = -lGLEW -lglfw -lGL -ldl
+rule cc 
+  command = clang++ -c $in -o $out $cflags
+rule lnk
+  command = clang++ $in -o $out $lflags
+
+build obj/main.o : cc src/main.cpp
+
+# build application
+build app : lnk obj/main.o obj/glad.o
