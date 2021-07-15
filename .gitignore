@@ -26,10 +26,10 @@
 *.a
 *.lib
 obj/
-
+.ninja_log
 
 # Executables
 *.exe
 *.out
 *.app
-app
+client
