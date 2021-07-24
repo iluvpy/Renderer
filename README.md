@@ -2,7 +2,6 @@
 just a simple c++ renderer
 
 ## dependencies
-- glew
 - ninja
 - clang
 - glfw
