@@ -8,9 +8,9 @@ rule lnk
 # build libs
 build obj/shader.o : cc src/lib/Shader.cpp
 build obj/vertexbuffer.o: cc src/lib/VertexBuffer.cpp
-
+build obj/color.o: cc src/lib/Color.cpp
 # build main file
 build obj/main.o : cc src/main.cpp
 
 # build application
-build client : lnk obj/main.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
+build client : lnk obj/main.o obj/color.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
