@@ -2,7 +2,13 @@
 #include <iostream>
 #include "Shader.hpp"
 
+Shader::Shader() {}
+
 Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
+	init(fragPath, vertPath);
+}	
+
+void Shader::init(const std::string& fragPath, const std::string& vertPath) {
 	program = glCreateProgram();
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -18,8 +24,7 @@ Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);  
-}	
-
+}
 
 void Shader::bind() {
 	glUseProgram(program);
@@ -49,6 +54,10 @@ void Shader::compile(const std::string& shaderSource, GLuint shader) {
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
 		std::cout << "Shader failed to compile:\n" << infoLog << std::endl;
 	}
+}
+
+GLuint Shader::getProgram() {
+	return program;
 }
 
 Shader::~Shader() {
