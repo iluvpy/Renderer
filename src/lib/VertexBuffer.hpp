@@ -6,10 +6,11 @@
 3*3 vertex buffer
 
 */
+#include <cstdlib>
 class VertexBuffer {
 
 public:
-	VertexBuffer(const void *vertices);
+	VertexBuffer(const void *vertices, size_t numVertices);
 
 	void bind();
 	void unbind();
@@ -21,5 +22,6 @@ private:
 
 	GLuint vao;
 	GLuint vbo;
+	size_t numVertices;
 
 };
