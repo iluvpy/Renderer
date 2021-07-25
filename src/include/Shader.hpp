@@ -1,6 +1,14 @@
 #pragma once
-#include <glad/glad.h>
+#include "types.hpp"
+#include "glad/glad.h"
 #include <string>
+
+
+enum ShaderType : uint8{
+	SHADER,
+	COLOR,
+	NONE
+};
 
 class Shader {
 
@@ -11,6 +19,7 @@ public:
 	void bind();
 	void unbind();
 	GLuint getProgram();
+	GLuint getUniformLocation(const std::string& name);
 	~Shader();
 private:
 
@@ -20,5 +29,4 @@ private:
 	GLuint program;
 	GLuint vertexShader;
 	GLuint fragmentShader;
-
 };
