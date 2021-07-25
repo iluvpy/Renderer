@@ -2,12 +2,12 @@
 #include "IndexBuffer.hpp"
 
 
-IndexBuffer::IndexBuffer(uint *indeces, uint count) 
+IndexBuffer::IndexBuffer(uint *indices, uint count) 
 : m_count(count)
 {
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count*sizeof(uint), indeces, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count*sizeof(uint), indices, GL_STATIC_DRAW);
 }
 
 

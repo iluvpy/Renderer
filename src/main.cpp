@@ -9,6 +9,9 @@
 #include "include/Color.hpp"
 #include "include/IndexBuffer.hpp"
 
+void GLClearError() {
+	while (glGetError() != GL_NO_ERROR);
+}
 
 int main(int argc, char **argv) {
 	GLFWwindow* window;
@@ -39,14 +42,13 @@ int main(int argc, char **argv) {
 		glfwTerminate();
     	return -1;
 	}
-	
 	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
-	uint numVertices = 6;
+	uint numVertices = 4;
 	float vertices[] = {
     -0.5f, -0.5f, 0.0f, // 0
      0.5f, -0.5f, 0.0f, // 1
-     0.5f,  0.5f, 0.0f  // 2
+     0.5f,  0.5f, 0.0f, // 2
 	-0.5f,  0.5f, 0.0f  // 3
 	};  
 
@@ -56,10 +58,11 @@ int main(int argc, char **argv) {
 		2, 3, 0
 	};
 
-	VertexBuffer buffer(vertices, numVertices);
-	IndexBuffer ibo(indices, index_count);
 
-	Color color(0, 40, 140);
+	IndexBuffer ibo(indices, index_count);
+	VertexBuffer buffer(vertices, numVertices);
+
+	Color color(0, 140, 40);
 	int16_t r = 1;
 	int8_t increment = -1;
     /* Loop until the user closes the window */
@@ -68,15 +71,13 @@ int main(int argc, char **argv) {
         /* Render here */
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
 		color.bind();
 		buffer.bind();
 		ibo.bind();
-		glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, nullptr); // draw ibo
+		glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0); // draw ibo
 		ibo.unbind();
 		buffer.unbind();
 		color.unbind();
-	
 
 		color.setR(r);
 		r += increment;

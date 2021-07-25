@@ -12,7 +12,7 @@
 class IndexBuffer {
 
 public:
-	IndexBuffer(uint *indeces, uint count);
+	IndexBuffer(uint *indices, uint count);
 	void bind() const;
 	void unbind() const;
 	void draw() const;
