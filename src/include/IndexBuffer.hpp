@@ -3,20 +3,17 @@
 #pragma once
 
 #include "glad/glad.h"
-
-/*
-3*3 vertex buffer
-
-*/
 #include <cstdlib>
+
 class IndexBuffer {
 
 public:
+	IndexBuffer();
 	IndexBuffer(uint *indices, uint count);
 	void bind() const;
 	void unbind() const;
 	void draw() const;
-	GLuint getCount() const;
+	inline GLuint getCount() const { return m_count; }
 	~IndexBuffer(); 
 
 private:

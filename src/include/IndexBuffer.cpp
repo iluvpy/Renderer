@@ -1,7 +1,7 @@
 
 #include "IndexBuffer.hpp"
 
-
+IndexBuffer::IndexBuffer() {}
 IndexBuffer::IndexBuffer(uint *indices, uint count) 
 : m_count(count)
 {
@@ -23,8 +23,6 @@ void IndexBuffer::draw() const {
 	glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, nullptr);
 }
 
-
-GLuint IndexBuffer::getCount() const { return m_count; }
 
 IndexBuffer::~IndexBuffer() {
 	glDeleteBuffers(1, &ibo);
