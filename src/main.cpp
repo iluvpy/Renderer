@@ -18,9 +18,8 @@ int main(int argc, char **argv) {
         return -1;
 	}
 
-
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Renderer", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "Renderer", glfwGetPrimaryMonitor(), NULL);
     if (!window)
     {	
 		std::cout << "could not create glfw window\n";
@@ -29,7 +28,7 @@ int main(int argc, char **argv) {
     }
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
+	glfwSwapInterval(1);
 	/* Make the window's context current */
     glfwMakeContextCurrent(window);
 
@@ -53,8 +52,9 @@ int main(int argc, char **argv) {
 	};  
 
 	VertexBuffer buffer(vertices, numVertices);
-	Color color(255, 40, 140);
-	
+	Color color(0, 40, 140);
+	int16_t r = 1;
+	int8_t increment = -1;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -67,6 +67,11 @@ int main(int argc, char **argv) {
 		color.unbind();
 		buffer.unbind();
 
+		color.setR(r);
+		r += increment;
+		if (r <= 0) {increment = 1;}
+		else if (r >= 255) {increment = -1;}
+		
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
