@@ -4,15 +4,16 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
-#include "lib/Shader.hpp"
-#include "lib/VertexBuffer.hpp"
-#include "lib/Color.hpp"
+#include "include/Shader.hpp"
+#include "include/VertexBuffer.hpp"
+#include "include/Color.hpp"
+#include "include/IndexBuffer.hpp"
 
 
 int main(int argc, char **argv) {
 	GLFWwindow* window;
 
-    /* Initialize the library */
+    /* Initialize the includerary */
     if (!glfwInit()) {
 		std::cout << "could not init glfw\n";
         return -1;
@@ -39,19 +40,25 @@ int main(int argc, char **argv) {
     	return -1;
 	}
 	
-	std::cout << "opengl version " << glGetString(GL_VERSION) << std::endl;
-	size_t numVertices = 6;
+	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
+	uint numVertices = 6;
 	float vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-
-	 0.5f,  0.5f, 0.0f,
-    -0.5f,  0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f
+    -0.5f, -0.5f, 0.0f, // 0
+     0.5f, -0.5f, 0.0f, // 1
+     0.5f,  0.5f, 0.0f  // 2
+	-0.5f,  0.5f, 0.0f  // 3
 	};  
 
+	uint index_count = 6;
+	uint indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
 	VertexBuffer buffer(vertices, numVertices);
+	IndexBuffer ibo(indices, index_count);
+
 	Color color(0, 40, 140);
 	int16_t r = 1;
 	int8_t increment = -1;
@@ -61,11 +68,15 @@ int main(int argc, char **argv) {
         /* Render here */
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
 		color.bind();
 		buffer.bind();
-		buffer.draw();
-		color.unbind();
+		ibo.bind();
+		glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, nullptr); // draw ibo
+		ibo.unbind();
 		buffer.unbind();
+		color.unbind();
+	
 
 		color.setR(r);
 		r += increment;
