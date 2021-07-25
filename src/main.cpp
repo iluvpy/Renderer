@@ -6,8 +6,12 @@
 
 #include "include/Shader.hpp"
 #include "include/VertexBuffer.hpp"
-#include "include/Color.hpp"
+#include "include/ColorShader.hpp"
 #include "include/IndexBuffer.hpp"
+#include "include/BufferLayout.hpp"
+
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 
 void GLClearError() {
 	while (glGetError() != GL_NO_ERROR);
@@ -44,12 +48,14 @@ int main(int argc, char **argv) {
 	}
 	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
+
+	
 	uint numVertices = 4;
 	float vertices[] = {
-    -0.5f, -0.5f, 0.0f, // 0
-     0.5f, -0.5f, 0.0f, // 1
-     0.5f,  0.5f, 0.0f, // 2
-	-0.5f,  0.5f, 0.0f  // 3
+    -0.5f, -0.5f, // 0
+     0.5f, -0.5f, // 1
+     0.5f,  0.5f, // 2
+	-0.5f,  0.5f  // 3
 	};  
 
 	uint index_count = 6;
@@ -58,31 +64,19 @@ int main(int argc, char **argv) {
 		2, 3, 0
 	};
 
-
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
-
-	Color color(0, 140, 40);
-	int16_t r = 1;
-	int8_t increment = -1;
+	ColorShader color(100, 216, 150);
+	BufferLayout bl(buffer, ibo);
+	bl.setColor(color);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-		color.bind();
-		buffer.bind();
-		ibo.bind();
-		glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0); // draw ibo
-		ibo.unbind();
-		buffer.unbind();
-		color.unbind();
-
-		color.setR(r);
-		r += increment;
-		if (r <= 0) {increment = 1;}
-		else if (r >= 255) {increment = -1;}
+		
+		bl.draw();
 		
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
