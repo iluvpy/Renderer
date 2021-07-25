@@ -1,24 +1,34 @@
 #include "Color.hpp"
 
-Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+Color::Color(float r, float g, float b, float a) {
 	colorShader.init("./shaders/colorFrag.glsl", "./shaders/colorVert.glsl");
 	colorShader.bind();
-	color = toRGB(r, g, b, a);
+	setR(r);
+	setG(g);
+	setB(b);
+	setA(a);
 	location = glGetUniformLocation(colorShader.getProgram(), "u_Color");
 }
 
 void Color::bind() {
 	colorShader.bind();
-	glUniform4f(location, color.r, color.g, color.b, color.a);
+	glUniform4f(location, r, g, b, a);
 }
 void Color::unbind() {
 	colorShader.unbind();
 }
 
-glm::vec4 Color::toRGB(float r, float g, float b, float a) {
-	return glm::vec4(r/255, g/255, b/255, a/255);
+void Color::setR(float _r) {
+	r = _r/255;
+}
+void Color::setG(float _g) {
+	g = _g/255;
+}
+void Color::setB(float _b) {
+	b = _b/255;
+}
+void Color::setA(float _a) {
+	a = _a/255;
 }
 
-Color::~Color() {
-
-}
+Color::~Color() {}
