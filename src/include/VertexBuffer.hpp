@@ -2,19 +2,17 @@
 
 #include "glad/glad.h"
 
-/*
-3*3 vertex buffer
 
-*/
 #include <cstdlib>
 class VertexBuffer {
 
 public:
-	VertexBuffer(const void *vertices, size_t numVertices);
-
-	void bind();
-	void unbind();
-	void draw();
+	VertexBuffer();
+	VertexBuffer(const void *vertices, uint numVertices);
+	void init(const void *vertices, uint numVertices);
+	void bind() const;
+	void unbind() const;
+	void draw() const;
 
 	~VertexBuffer(); 
 
@@ -22,6 +20,6 @@ private:
 
 	GLuint vao;
 	GLuint vbo;
-	size_t numVertices;
+	uint numVertices;
 
 };

@@ -1,8 +1,11 @@
 
 #include "VertexBuffer.hpp"
 
+#define DIMENSION 2
 
-VertexBuffer::VertexBuffer(const void *vertices, size_t numVertices) 
+
+VertexBuffer::VertexBuffer() {}
+VertexBuffer::VertexBuffer(const void *vertices, uint numVertices) 
 : numVertices(numVertices)
 {
 	glGenVertexArrays(1, &vao);  
@@ -10,25 +13,25 @@ VertexBuffer::VertexBuffer(const void *vertices, size_t numVertices)
 
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*numVertices*3, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * DIMENSION, vertices, GL_STATIC_DRAW);
 
 	// bind data to vao
 	glEnableVertexAttribArray(0);  
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, DIMENSION, GL_FLOAT, GL_FALSE, DIMENSION * sizeof(float), (void*)0);
 
 	glBindVertexArray(0);
 }
 
 
-void VertexBuffer::bind() {
+void VertexBuffer::bind() const {
 	glBindVertexArray(vao);
 }
 
-void VertexBuffer::unbind() {
+void VertexBuffer::unbind() const {
 	glBindVertexArray(0);
 }
 
-void VertexBuffer::draw() {
+void VertexBuffer::draw() const {
 	glDrawArrays(GL_TRIANGLES, 0, numVertices);
 }
 
