@@ -9,9 +9,11 @@ rule lnk
 build obj/shader.o : cc src/include/Shader.cpp
 build obj/vertexbuffer.o: cc src/include/VertexBuffer.cpp
 build obj/indexbuffer.o: cc src/include/IndexBuffer.cpp
-build obj/color.o: cc src/include/Color.cpp
+build obj/colorshader.o: cc src/include/ColorShader.cpp
+build obj/bufferlayout.o: cc src/include/BufferLayout.cpp
+build obj/renderer.o: cc src/include/Renderer.cpp
 # build main file
 build obj/main.o : cc src/main.cpp
 
 # build application
-build client : lnk obj/main.o obj/indexbuffer.o obj/color.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
+build client : lnk obj/main.o obj/bufferlayout.o obj/renderer.o obj/indexbuffer.o obj/colorshader.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
