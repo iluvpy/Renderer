@@ -6,7 +6,7 @@
 
 #include "include/Shader.hpp"
 #include "include/VertexBuffer.hpp"
-#include "include/ColorShader.hpp"
+#include "include/Color.hpp"
 #include "include/IndexBuffer.hpp"
 #include "include/BufferLayout.hpp"
 
@@ -66,16 +66,15 @@ int main(int argc, char **argv) {
 
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
-	ColorShader color(100, 216, 150);
-	BufferLayout bl(buffer, ibo);
-	bl.setColor(color);
+	Shader sh("./shaders/fs.glsl", "./shaders/vs.glsl");
+	BufferLayout bl(buffer, ibo, sh);	
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-		
+
 		bl.draw();
 		
         /* Swap front and back buffers */
@@ -84,7 +83,6 @@ int main(int argc, char **argv) {
         /* Poll for and process events */
         glfwPollEvents();
     }
-
     glfwTerminate();
     return 0;
 }
