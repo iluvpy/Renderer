@@ -1,14 +1,12 @@
 #pragma once
 #include "types.hpp"
 #include "glad/glad.h"
+#include <map>
 #include <string>
 
 
-enum ShaderType : uint8{
-	SHADER,
-	COLOR,
-	NONE
-};
+#define U_COLOR_FSH "./shaders/colorFrag.glsl"
+#define U_COLOR_VSH "./shaders/colorVert.glsl"
 
 class Shader {
 
@@ -25,8 +23,6 @@ private:
 
 	std::string read(const std::string& shaderPath);
 	void compile(const std::string& shaderSrc, GLuint shader);
-	
+
 	GLuint program;
-	GLuint vertexShader;
-	GLuint fragmentShader;
 };

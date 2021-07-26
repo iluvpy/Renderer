@@ -10,8 +10,8 @@ Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
 
 void Shader::init(const std::string& fragPath, const std::string& vertPath) {
 	program = glCreateProgram();
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	
 	std::string fragSrc = read(fragPath);
 	std::string vertSrc = read(vertPath);
@@ -59,7 +59,6 @@ void Shader::compile(const std::string& shaderSource, GLuint shader) {
 GLuint Shader::getUniformLocation(const std::string& name) {
 	return glGetUniformLocation(program, name.c_str());
 }
-
 
 GLuint Shader::getProgram() {
 	return program;
