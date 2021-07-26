@@ -27,6 +27,7 @@
 *.lib
 obj/
 .ninja_log
+vgcore.*
 
 # Executables
 *.exe
