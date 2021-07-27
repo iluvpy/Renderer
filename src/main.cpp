@@ -79,7 +79,6 @@ int main(int argc, char **argv) {
 
 		r += r_increment;
 		if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
-	
 		bl.getShader().getColorShader().setR(r);
 		bl.draw();
 		
