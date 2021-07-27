@@ -6,7 +6,6 @@
 
 #include "include/Shader.hpp"
 #include "include/VertexBuffer.hpp"
-#include "include/Color.hpp"
 #include "include/IndexBuffer.hpp"
 #include "include/BufferLayout.hpp"
 
@@ -66,8 +65,11 @@ int main(int argc, char **argv) {
 
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
-	Shader sh("./shaders/fs.glsl", "./shaders/vs.glsl");
-	BufferLayout bl(buffer, ibo, sh);	
+
+	float r = 254.0f;
+	float r_increment = 1.0f;
+	ColorShader color(r, 120, 100);
+	BufferLayout bl(buffer, ibo, color);	
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -75,6 +77,10 @@ int main(int argc, char **argv) {
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+		r += r_increment;
+		if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
+	
+		bl.getShader().getColorShader().setR(r);
 		bl.draw();
 		
         /* Swap front and back buffers */
