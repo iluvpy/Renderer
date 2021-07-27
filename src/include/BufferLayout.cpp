@@ -6,9 +6,14 @@ BufferLayout::BufferLayout() {}
 BufferLayout::BufferLayout(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh) {
 	m_vb = vb;
 	m_ib = ib;
-	m_shader = sh;
+	m_shader.setShader(sh);
 }
 
+BufferLayout::BufferLayout(const VertexBuffer& vb, const IndexBuffer& ib, const ColorShader& sh) {
+	m_vb = vb;
+	m_ib = ib;
+	m_shader.setShader(sh);
+}
 
 void BufferLayout::bind() {
 	m_shader.bind();
@@ -22,7 +27,11 @@ void BufferLayout::unbind() {
 }
 
 void BufferLayout::setShader(const Shader& _shader) {
-	m_shader = _shader;
+	m_shader.setShader(_shader);
+}
+
+void BufferLayout::setShader(const ColorShader& _shader) {
+	m_shader.setShader(_shader);
 }
 
 void BufferLayout::draw() {
