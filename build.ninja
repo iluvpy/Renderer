@@ -13,8 +13,9 @@ build obj/colorshader.o: cc src/include/ColorShader.cpp
 build obj/bufferlayout.o: cc src/include/BufferLayout.cpp
 build obj/shaderhandler.o: cc src/include/ShaderHandler.cpp
 build obj/renderer.o: cc src/include/Renderer.cpp
+build obj/utils.o: cc src/include/Utils.cpp
 # build main file
 build obj/main.o : cc src/main.cpp
 
 # build application
-build client : lnk obj/main.o obj/shaderhandler.o obj/colorshader.o obj/bufferlayout.o obj/renderer.o obj/indexbuffer.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
+build client : lnk obj/main.o obj/utils.o obj/shaderhandler.o obj/colorshader.o obj/bufferlayout.o obj/renderer.o obj/indexbuffer.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
