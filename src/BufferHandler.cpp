@@ -14,12 +14,12 @@ BufferHandler::BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, cons
 	m_shader.setShader(sh);
 }
 
-void BufferHandler::bind() {
+void BufferHandler::bind() const {
 	m_shader.bind();
 	m_vb.bind();
 	m_ib.bind();
 }
-void BufferHandler::unbind() {
+void BufferHandler::unbind() const {
 	m_vb.unbind();
 	m_ib.unbind();
 	m_shader.unbind();
@@ -33,7 +33,7 @@ void BufferHandler::setShader(const ColorShader& _shader) {
 	m_shader.setShader(_shader);
 }
 
-void BufferHandler::draw() {
+void BufferHandler::draw() const{
 	bind();
 	glDrawElements(GL_TRIANGLES, m_ib.getCount(), GL_UNSIGNED_INT, nullptr);
 	unbind();

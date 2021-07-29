@@ -17,8 +17,8 @@ public:
 
 private:
 
-	GLuint vao;
-	GLuint vbo;
-	uint numVertices;
+	GLuint m_vao;
+	GLuint m_vbo;
+	uint m_numVertices;
 
 };

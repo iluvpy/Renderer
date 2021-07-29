@@ -64,6 +64,15 @@
 		"variant": "cpp",
 		"strstream": "cpp",
 		"codecvt": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"cassert": "cpp",
+		"cerrno": "cpp",
+		"cfloat": "cpp",
+		"climits": "cpp",
+		"filesystem": "cpp",
+		"ios": "cpp",
+		"locale": "cpp",
+		"queue": "cpp",
+		"cstdbool": "cpp"
 	}
 }

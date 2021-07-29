@@ -17,6 +17,6 @@ public:
 	~IndexBuffer(); 
 
 private:
-	GLuint ibo;
+	GLuint m_ibo;
 	GLuint m_count;
 };

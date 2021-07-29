@@ -4,10 +4,11 @@
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
-#include "include/Shader.hpp"
-#include "include/VertexBuffer.hpp"
-#include "include/IndexBuffer.hpp"
-#include "include/BufferHandler.hpp"
+#include "Shader.hpp"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
+#include "BufferHandler.hpp"
+#include "Renderer.hpp"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
@@ -66,21 +67,26 @@ int main(int argc, char **argv) {
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
-	float r = 254.0f;
-	float r_increment = 1.0f;
-	ColorShader color(r, 120, 100);
+	// float r = 254.0f;
+	// float r_increment = 1.0f;
+	ColorShader color(120.0f, 120, 100);
 	BufferHandler bl(buffer, ibo, color);	
+
+	Renderer renderer;
+	renderer.appendDraw(bl);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        /* Render here */
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // /* Render here */
+		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        // glClear(GL_COLOR_BUFFER_BIT);
 
-		r += r_increment;
-		if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
-		bl.getShader().getColorShader().setR(r);
-		bl.draw();
+		// r += r_increment;
+		// if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
+		// bl.getShader().getColorShader().setR(r);
+		// bl.draw();
+		renderer.clear();
+		renderer.draw();
 		
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

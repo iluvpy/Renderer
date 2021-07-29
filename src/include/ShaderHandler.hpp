@@ -13,18 +13,18 @@ enum ShaderType {
 class ShaderHandler {
 public:
 	ShaderHandler();
-	void bind();
-	void unbind();
+	void bind() const;
+	void unbind() const;
 
 	void setShader(const Shader& sh);
 	void setShader(const ColorShader& sh);
 
-	inline ColorShader& getColorShader() { return colorShader; }
-	inline Shader& getShader() { return shader; }
+	inline ColorShader& getColorShader() { return m_colorShader; }
+	inline Shader& getShader() { return m_shader; }
 	~ShaderHandler();
 
 private:
-	ShaderType current_shader=ShaderType::NONE;
-	ColorShader colorShader;
-	Shader shader;
+	ShaderType m_currentShader=ShaderType::NONE;
+	ColorShader m_colorShader;
+	Shader m_shader;
 };

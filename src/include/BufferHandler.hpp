@@ -12,9 +12,9 @@ public:
 	BufferHandler();
 	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh);
 	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const ColorShader& sh);
-	void bind();
-	void unbind();
-	void draw();
+	void bind() const;
+	void unbind() const;
+	void draw() const;
 	void setShader(const Shader& _shader);
 	void setShader(const ColorShader& _shader);
 	inline ShaderHandler& getShader() {return m_shader;}

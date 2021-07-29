@@ -9,7 +9,7 @@ Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
 }	
 
 void Shader::init(const std::string& fragPath, const std::string& vertPath) {
-	program = glCreateProgram();
+	m_program = glCreateProgram();
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	
@@ -18,19 +18,19 @@ void Shader::init(const std::string& fragPath, const std::string& vertPath) {
 	compile(vertSrc, vertexShader);
 	compile(fragSrc, fragmentShader);
 
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
+	glAttachShader(m_program, vertexShader);
+	glAttachShader(m_program, fragmentShader);
+	glLinkProgram(m_program);
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);  
 }
 
-void Shader::bind() {
-	glUseProgram(program);
+void Shader::bind() const{
+	glUseProgram(m_program);
 }
 
-void Shader::unbind() {
+void Shader::unbind() const{
 	glUseProgram(0);
 }
 
@@ -57,13 +57,13 @@ void Shader::compile(const std::string& shaderSource, GLuint shader) {
 }
 
 GLuint Shader::getUniformLocation(const std::string& name) {
-	return glGetUniformLocation(program, name.c_str());
+	return glGetUniformLocation(m_program, name.c_str());
 }
 
 GLuint Shader::getProgram() {
-	return program;
+	return m_program;
 }
 
 Shader::~Shader() {
-	glDeleteProgram(program);
+	glDeleteProgram(m_program);
 }

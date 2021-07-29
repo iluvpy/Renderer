@@ -3,28 +3,28 @@
 
 ShaderHandler::ShaderHandler() {}
 
-void ShaderHandler::bind() {
-	switch (current_shader)
+void ShaderHandler::bind() const{
+	switch (m_currentShader)
 	{
 		case ShaderType::NORMAL:
-			shader.bind();
+			m_shader.bind();
 			break;
 		case ShaderType::COLOR:
-			colorShader.bind();
+			m_colorShader.bind();
 			break;
 		default:
 			break;
 	}
 }
 
-void ShaderHandler::unbind() {
-	switch (current_shader)
+void ShaderHandler::unbind() const{
+	switch (m_currentShader)
 	{
 		case ShaderType::NORMAL:
-			shader.unbind();
+			m_shader.unbind();
 			break;
 		case ShaderType::COLOR:
-			colorShader.unbind();
+			m_colorShader.unbind();
 			break;
 		default:
 			break;
@@ -33,13 +33,13 @@ void ShaderHandler::unbind() {
 
 
 void ShaderHandler::setShader(const Shader& sh) {
-	current_shader = ShaderType::NORMAL;
-	shader = sh;
+	m_currentShader = ShaderType::NORMAL;
+	m_shader = sh;
 }
 
 void ShaderHandler::setShader(const ColorShader& sh) {
-	current_shader = ShaderType::COLOR;
-	colorShader = sh;
+	m_currentShader = ShaderType::COLOR;
+	m_colorShader = sh;
 }
 
 ShaderHandler::~ShaderHandler() {}
