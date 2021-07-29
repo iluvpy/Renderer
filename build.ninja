@@ -1,9 +1,10 @@
-cflags = -std=c++17 -O0 -Wall -Werror -g -DDEBUG -I./src/
+cflags = -std=c++17 -O0 -Wall -Werror -g -DDEBUG -I./src/include/ -I./src/
 lflags =  -lglfw -lGL -ldl
+cxx = clang++
 rule cc 
-  command = clang++ -c $in -o $out $cflags
+  command = $cxx -c $in -o $out $cflags
 rule lnk
-  command = clang++ $in -o $out $lflags
+  command = $cxx $in -o $out $lflags
 
 # build libs
 build obj/shader.o : cc src/Shader.cpp
