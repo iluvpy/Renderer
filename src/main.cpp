@@ -7,7 +7,7 @@
 #include "include/Shader.hpp"
 #include "include/VertexBuffer.hpp"
 #include "include/IndexBuffer.hpp"
-#include "include/BufferLayout.hpp"
+#include "include/BufferHandler.hpp"
 
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
 	float r = 254.0f;
 	float r_increment = 1.0f;
 	ColorShader color(r, 120, 100);
-	BufferLayout bl(buffer, ibo, color);	
+	BufferHandler bl(buffer, ibo, color);	
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {

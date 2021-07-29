@@ -1,17 +1,17 @@
 #pragma once
 
-#include "BufferLayout.hpp"
+#include "BufferHandler.hpp"
 
 class Renderer {
 public:
 
 	Renderer();
-	void Draw(BufferLayout);
+	void Draw(const BufferHandler& handler);
 	void Clear();
 	void Update();
 	~Renderer();
 
 private:
-	BufferLayout *layouts;
+	BufferHandler *layouts;
 	uint layout_len;
 };

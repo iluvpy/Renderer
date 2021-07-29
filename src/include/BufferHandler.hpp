@@ -7,18 +7,18 @@
 #include "types.hpp"
 
 
-class BufferLayout {
+class BufferHandler {
 public:
-	BufferLayout();
-	BufferLayout(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh);
-	BufferLayout(const VertexBuffer& vb, const IndexBuffer& ib, const ColorShader& sh);
+	BufferHandler();
+	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh);
+	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const ColorShader& sh);
 	void bind();
 	void unbind();
 	void draw();
 	void setShader(const Shader& _shader);
 	void setShader(const ColorShader& _shader);
 	inline ShaderHandler& getShader() {return m_shader;}
-	~BufferLayout();
+	~BufferHandler();
 private:
 
 	VertexBuffer m_vb;
