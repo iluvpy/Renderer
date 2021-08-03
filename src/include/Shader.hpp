@@ -1,12 +1,12 @@
 #pragma once
 #include "types.hpp"
 #include "glad/glad.h"
-#include <map>
+
 #include <string>
+#include <unordered_map>
 
-
-#define U_COLOR_FSH "./shaders/colorFrag.glsl"
-#define U_COLOR_VSH "./shaders/colorVert.glsl"
+#define BASIC_FS "./shaders/basicFs.glsl"
+#define BASIC_VS "./shaders/basicVs.glsl"
 
 class Shader {
 
@@ -18,11 +18,13 @@ public:
 	void unbind() const;
 	GLuint getProgram();
 	GLuint getUniformLocation(const std::string& name);
+	void SetUniform4f(const std::string& name, float f1, float f2, float f3, float f4);
 	~Shader();
 private:
 
 	std::string read(const std::string& shaderPath);
 	void compile(const std::string& shaderSrc, GLuint shader);
 
+	std::unordered_map<std::string, int> m_locationCache;
 	GLuint m_program;
 };

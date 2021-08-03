@@ -10,8 +10,5 @@ void debug_printf(const std::string& fmt, ...);
 
 #endif // DEBUG
 
-#define DEBUG_CALL_FUNC(f) #ifdef DEBUG \
-f\
-#endif
 
 #define debug_function(f) DEBUG_CALL_FUNC(f)

@@ -5,14 +5,9 @@ BufferHandler::BufferHandler() {}
 BufferHandler::BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh) {
 	m_vb = vb;
 	m_ib = ib;
-	m_shader.setShader(sh);
+	m_shader = sh;
 }
 
-BufferHandler::BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const ColorShader& sh) {
-	m_vb = vb;
-	m_ib = ib;
-	m_shader.setShader(sh);
-}
 
 void BufferHandler::bind() const {
 	m_shader.bind();

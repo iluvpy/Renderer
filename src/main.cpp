@@ -66,14 +66,14 @@ int main(int argc, char **argv) {
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
-	float r = 254.0f;
-	float r_increment = 1.0f;
-	ColorShader color(120.0f, 120, 100);
+	Shader color(BASIC_FS, BASIC_VS);
 	BufferHandler bl(buffer, ibo, color);	
 
 	Renderer renderer;
 	renderer.appendDraw(&bl);
-	//bl.getShader().getColorShader().setR(0.0f);
+
+	float r = 0.0f;
+	float increment = -0.01f;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -81,10 +81,10 @@ int main(int argc, char **argv) {
 		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         // glClear(GL_COLOR_BUFFER_BIT);
 
-		r += r_increment;
-		if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
-		bl.getShader().getColorShader().setR(r);
 		// bl.draw();
+		if (r >= 1.0f || r <= 0.0f) increment = -increment;
+		r += increment;
+		bl.getShader().SetUniform4f("u_Color", r, 0.3f, 0.5f, 1.0f);
 		renderer.clear(100, 100, 100);
 		renderer.draw();
 		
