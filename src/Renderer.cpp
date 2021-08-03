@@ -2,13 +2,13 @@
 
 Renderer::Renderer() {}
 
-void Renderer::appendDraw(const BufferHandler& handler) {
+void Renderer::appendDraw(BufferHandler *handler) {
     m_buffers.push_back(handler);
 }
 
 void Renderer::draw()  {
-    for (auto &handler : m_buffers) {
-        handler.draw();
+    for (auto handler : m_buffers) {
+        handler->draw();
     }
 }
 

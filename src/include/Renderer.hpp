@@ -7,13 +7,13 @@ class Renderer {
 public:
 
 	Renderer();
-	void appendDraw(const BufferHandler& handler);
+	void appendDraw(BufferHandler *handler);
 	void draw();
-	void clear(float r=1.0f, float g=1.0f, float b=1.0f, float a=1.0f);
+	void clear(float r=255.0f, float g=255.0f, float b=255.0f, float a=255.0f);
 	void update();
 	~Renderer();
 
 private:
-	std::vector<BufferHandler> m_buffers;
+	std::vector<BufferHandler*> m_buffers;
 	
 };
