@@ -35,7 +35,6 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	glfwSwapInterval(1);
 	/* Make the window's context current */
     glfwMakeContextCurrent(window);
@@ -67,13 +66,14 @@ int main(int argc, char **argv) {
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
-	// float r = 254.0f;
-	// float r_increment = 1.0f;
+	float r = 254.0f;
+	float r_increment = 1.0f;
 	ColorShader color(120.0f, 120, 100);
 	BufferHandler bl(buffer, ibo, color);	
 
 	Renderer renderer;
-	renderer.appendDraw(bl);
+	renderer.appendDraw(&bl);
+	//bl.getShader().getColorShader().setR(0.0f);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -81,12 +81,13 @@ int main(int argc, char **argv) {
 		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         // glClear(GL_COLOR_BUFFER_BIT);
 
-		// r += r_increment;
-		// if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
-		// bl.getShader().getColorShader().setR(r);
+		r += r_increment;
+		if (r >= 255.0f || r < 0.0f) r_increment = -r_increment;
+		bl.getShader().getColorShader().setR(r);
 		// bl.draw();
-		renderer.clear();
+		renderer.clear(100, 100, 100);
 		renderer.draw();
+		
 		
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
