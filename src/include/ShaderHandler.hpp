@@ -2,13 +2,7 @@
 
 #include "Shader.hpp"
 #include "ColorShader.hpp"
-
-enum ShaderType {
-	NORMAL, // shader from "Shader" class
-	COLOR, // shader from "ColorShader" class
-	TEXTURE, // shader from "TextureShader" class
-	NONE // none
-};
+#include "Structs.hpp"
 
 class ShaderHandler {
 public:
