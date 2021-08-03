@@ -25,13 +25,6 @@ void BufferHandler::unbind() const {
 	m_shader.unbind();
 }
 
-void BufferHandler::setShader(const Shader& _shader) {
-	m_shader.setShader(_shader);
-}
-
-void BufferHandler::setShader(const ColorShader& _shader) {
-	m_shader.setShader(_shader);
-}
 
 void BufferHandler::draw() const{
 	bind();

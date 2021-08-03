@@ -15,8 +15,13 @@ public:
 	void bind() const;
 	void unbind() const;
 	void draw() const;
-	void setShader(const Shader& _shader);
-	void setShader(const ColorShader& _shader);
+
+
+	template <typename shader_T>
+	void setShader(const shader_T& _shader) {
+		m_shader.setShader(_shader);
+	}
+
 	inline ShaderHandler& getShader() {return m_shader;}
 	~BufferHandler();
 private:
