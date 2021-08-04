@@ -3,6 +3,7 @@
 
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.hpp"
 #include "VertexBuffer.hpp"
@@ -27,7 +28,7 @@ int main(int argc, char **argv) {
 	}
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "Renderer", glfwGetPrimaryMonitor(), NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", glfwGetPrimaryMonitor(), NULL);
     if (!window)
     {	
 		std::cout << "could not create glfw window\n";
@@ -51,10 +52,10 @@ int main(int argc, char **argv) {
 	
 	uint numVertices = 4;
 	float vertices[] = {
-    -0.5f, -0.5f, // 0
-     0.5f, -0.5f, // 1
-     0.5f,  0.5f, // 2
-	-0.5f,  0.5f  // 3
+		1.0f, 9.0f,
+		9.0f, 9.0f,
+		9.0f, 1.0f,
+		1.0f, 1.0f
 	};  
 
 	uint index_count = 6;
@@ -66,11 +67,13 @@ int main(int argc, char **argv) {
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
+	glm::mat4 ortho = glm::ortho(0.0f, 100.0f, 100.0f, 0.0f);
 	Shader color(BASIC_FS, BASIC_VS);
+	color.SetUniformMatrix4f("u_Ortho", ortho);
 	BufferHandler bl(buffer, ibo, color);	
 
 	Renderer renderer;
-	renderer.appendDraw(&bl);
+	renderer.AppendDraw(&bl);
 
 	float r = 0.0f;
 	float increment = -0.01f;
@@ -81,12 +84,12 @@ int main(int argc, char **argv) {
 		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         // glClear(GL_COLOR_BUFFER_BIT);
 
-		// bl.draw();
+		// bl.Draw();
 		if (r >= 1.0f || r <= 0.0f) increment = -increment;
 		r += increment;
-		bl.getShader().SetUniform4f("u_Color", r, 0.3f, 0.5f, 1.0f);
-		renderer.clear(100, 100, 100);
-		renderer.draw();
+		bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
+		renderer.Clear(100, 100, 100);
+		renderer.Draw();
 		
 		
         /* Swap front and back buffers */
