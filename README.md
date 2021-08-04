@@ -5,6 +5,7 @@ just a simple c++ renderer
 - ninja
 - clang
 - glfw
+- glm
 
 ## State
 this project is still in developement and might get a release in the next months or so
@@ -15,9 +16,9 @@ this project is still in developement and might get a release in the next months
 ## installation
 
 ### arch 
-	`sudo pacman clang glfw ninja`
+	`sudo pacman clang glfw ninja glm`
 ### debian
-	`sudo apt install clang ninja libglfw3-dev`
+	`sudo apt install clang ninja libglfw3-dev libglm-dev`
 
 ## Compilation
 compile glad by running the Makefile in glad/ <br>
