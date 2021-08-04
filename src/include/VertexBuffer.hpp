@@ -8,12 +8,12 @@ class VertexBuffer {
 public:
 	VertexBuffer();
 	VertexBuffer(const void *vertices, uint numVertices);
-	void init(const void *vertices, uint numVertices);
-	void bind() const;
-	void unbind() const;
-	void draw() const;
+	void Init(const void *vertices, uint numVertices);
+	void Bind() const;
+	void Unbind() const;
+	void Draw() const;
 
-	~VertexBuffer(); 
+	~VertexBuffer();  
 
 private:
 

@@ -10,12 +10,12 @@ class BufferHandler {
 public:
 	BufferHandler();
 	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh);
-	void bind() const;
-	void unbind() const;
-	void draw() const;
+	void Bind() const;
+	void Unbind() const;
+	void Draw() const;
 
 
-	inline Shader& getShader() {return m_shader;}
+	inline Shader& GetShader() {return m_shader;}
 	~BufferHandler();
 private:
 

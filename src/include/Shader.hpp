@@ -4,6 +4,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <glm/glm.hpp>
 
 #define BASIC_FS "./shaders/basicFs.glsl"
 #define BASIC_VS "./shaders/basicVs.glsl"
@@ -13,12 +14,13 @@ class Shader {
 public:
 	Shader();
 	Shader(const std::string& fragPath, const std::string& vertPath);	
-	void init(const std::string& fragPath, const std::string& vertPath);
-	void bind() const;
-	void unbind() const;
-	GLuint getProgram();
-	GLuint getUniformLocation(const std::string& name);
+	void Init(const std::string& fragPath, const std::string& vertPath);
+	void Bind() const;
+	void Unbind() const;
+	GLuint GetProgram();
+	GLuint GetUniformLocation(const std::string& name);
 	void SetUniform4f(const std::string& name, float f1, float f2, float f3, float f4);
+	void SetUniformMatrix4f(const std::string& name, glm::mat4 matrix);
 	~Shader();
 private:
 

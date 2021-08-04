@@ -11,15 +11,15 @@ IndexBuffer::IndexBuffer(uint *indices, uint count)
 }
 
 
-void IndexBuffer::bind() const{
+void IndexBuffer::Bind() const{
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
 }
 
-void IndexBuffer::unbind() const{
+void IndexBuffer::Unbind() const{
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void IndexBuffer::draw() const {
+void IndexBuffer::Draw() const {
 	glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, nullptr);
 }
 

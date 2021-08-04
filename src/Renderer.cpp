@@ -2,22 +2,22 @@
 
 Renderer::Renderer() {}
 
-void Renderer::appendDraw(BufferHandler *handler) {
+void Renderer::AppendDraw(BufferHandler *handler) {
     m_buffers.push_back(handler);
 }
 
-void Renderer::draw()  {
+void Renderer::Draw()  {
     for (auto handler : m_buffers) {
-        handler->draw();
+        handler->Draw();
     }
 }
 
-void Renderer::clear(float r, float g, float b, float a) {
+void Renderer::Clear(float r, float g, float b, float a) {
     glClearColor(r/255, g/255, b/255, a/255);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::update() {
+void Renderer::Update() {
 }
 
 Renderer::~Renderer() {

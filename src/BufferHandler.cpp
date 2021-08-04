@@ -9,22 +9,22 @@ BufferHandler::BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, cons
 }
 
 
-void BufferHandler::bind() const {
-	m_shader.bind();
-	m_vb.bind();
-	m_ib.bind();
+void BufferHandler::Bind() const {
+	m_shader.Bind();
+	m_vb.Bind();
+	m_ib.Bind();
 }
-void BufferHandler::unbind() const {
-	m_vb.unbind();
-	m_ib.unbind();
-	m_shader.unbind();
+void BufferHandler::Unbind() const {
+	m_vb.Unbind();
+	m_ib.Unbind();
+	m_shader.Unbind();
 }
 
 
-void BufferHandler::draw() const{
-	bind();
-	glDrawElements(GL_TRIANGLES, m_ib.getCount(), GL_UNSIGNED_INT, nullptr);
-	unbind();
+void BufferHandler::Draw() const{
+	Bind();
+	glDrawElements(GL_TRIANGLES, m_ib.GetCount(), GL_UNSIGNED_INT, nullptr);
+	Unbind();
 }
 
 BufferHandler::~BufferHandler() {}

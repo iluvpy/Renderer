@@ -15,7 +15,7 @@ VertexBuffer::VertexBuffer(const void *vertices, uint numVertices)
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * DIMENSION, vertices, GL_STATIC_DRAW);
 
-	// bind data to vao
+	// Bind data to vao
 	glEnableVertexAttribArray(0);  
 	glVertexAttribPointer(0, DIMENSION, GL_FLOAT, GL_FALSE, DIMENSION * sizeof(float), (void*)0);
 
@@ -23,15 +23,15 @@ VertexBuffer::VertexBuffer(const void *vertices, uint numVertices)
 }
 
 
-void VertexBuffer::bind() const {
+void VertexBuffer::Bind() const {
 	glBindVertexArray(m_vao);
 }
 
-void VertexBuffer::unbind() const {
+void VertexBuffer::Unbind() const {
 	glBindVertexArray(0);
 }
 
-void VertexBuffer::draw() const {
+void VertexBuffer::Draw() const {
 	glDrawArrays(GL_TRIANGLES, 0, m_numVertices);
 }
 

@@ -5,10 +5,10 @@
 Shader::Shader() {}
 
 Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
-	init(fragPath, vertPath);
+	Init(fragPath, vertPath);
 }	
 
-void Shader::init(const std::string& fragPath, const std::string& vertPath) {
+void Shader::Init(const std::string& fragPath, const std::string& vertPath) {
 	m_program = glCreateProgram();
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -26,11 +26,11 @@ void Shader::init(const std::string& fragPath, const std::string& vertPath) {
 	glDeleteShader(fragmentShader);  
 }
 
-void Shader::bind() const{
+void Shader::Bind() const{
 	glUseProgram(m_program);
 }
 
-void Shader::unbind() const{
+void Shader::Unbind() const{
 	glUseProgram(0);
 }
 
@@ -56,7 +56,7 @@ void Shader::compile(const std::string& shaderSource, GLuint shader) {
 	}
 }
 
-GLuint Shader::getUniformLocation(const std::string& name) {
+GLuint Shader::GetUniformLocation(const std::string& name) {
 	auto it = m_locationCache.find(name);
 	if (it != m_locationCache.end()) {
 		return it->second;
@@ -66,15 +66,22 @@ GLuint Shader::getUniformLocation(const std::string& name) {
 	return location;
 }
 
-GLuint Shader::getProgram() {
+GLuint Shader::GetProgram() {
 	return m_program;
 }
 
 void Shader::SetUniform4f(const std::string& name, float f1, float f2, float f3, float f4) {
-	bind();
-	glUniform4f(getUniformLocation(name), f1, f2, f3, f4);
-	unbind();
+	Bind();
+	glUniform4f(GetUniformLocation(name), f1, f2, f3, f4);
+	Unbind();
 }
+
+void Shader::SetUniformMatrix4f(const std::string& name, glm::mat4 matrix) {
+	Bind();
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
+	Unbind();
+}
+
 
 Shader::~Shader() {
 	glDeleteProgram(m_program);
