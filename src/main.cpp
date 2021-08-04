@@ -11,8 +11,8 @@
 #include "BufferHandler.hpp"
 #include "Renderer.hpp"
 
-#define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
+#define WINDOW_WIDTH 1920.0f
+#define WINDOW_HEIGHT 1080.0f
 
 void GLClearError() {
 	while (glGetError() != GL_NO_ERROR);
@@ -52,10 +52,10 @@ int main(int argc, char **argv) {
 	
 	uint numVertices = 4;
 	float vertices[] = {
-		1.0f, 9.0f,
-		9.0f, 9.0f,
-		9.0f, 1.0f,
-		1.0f, 1.0f
+		1.0f,  90.0f,
+		90.0f, 90.0f,
+		90.0f, 1.0f,
+		1.0f,  1.0f
 	};  
 
 	uint index_count = 6;
@@ -67,7 +67,8 @@ int main(int argc, char **argv) {
 	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
-	glm::mat4 ortho = glm::ortho(0.0f, 100.0f, 100.0f, 0.0f);
+	glm::mat4 ortho = glm::ortho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f);
+
 	Shader color(BASIC_FS, BASIC_VS);
 	color.SetUniformMatrix4f("u_Ortho", ortho);
 	BufferHandler bl(buffer, ibo, color);	
