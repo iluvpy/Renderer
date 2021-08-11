@@ -1,8 +1,9 @@
 
 #include "VertexBuffer.hpp"
 
-#define DIMENSION 2
-
+#define FLOATS_IN_VERTEX 5
+#define FLOATS_IN_POSITION 2
+#define FLOATS_IN_COLOR 3
 
 VertexBuffer::VertexBuffer() {}
 VertexBuffer::VertexBuffer(const void *vertices, uint numVertices) 
@@ -11,11 +12,14 @@ VertexBuffer::VertexBuffer(const void *vertices, uint numVertices)
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * DIMENSION, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * FLOATS_IN_VERTEX, vertices, GL_STATIC_DRAW);
 
 	// Bind data to vao
 	glEnableVertexAttribArray(0);  
-	glVertexAttribPointer(0, DIMENSION, GL_FLOAT, GL_FALSE, DIMENSION * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, FLOATS_IN_VERTEX * sizeof(float), (void*)0);
+
+	glVertexAttribPointer(1, FLOATS_IN_COLOR, GL_FLOAT, GL_FALSE, FLOATS_IN_VERTEX * sizeof(float), (void*)(FLOATS_IN_POSITION * sizeof(float)));
+	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 }
@@ -23,8 +27,12 @@ VertexBuffer::VertexBuffer(const void *vertices, uint numVertices)
 
 void VertexBuffer::Bind() const {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+
 	glEnableVertexAttribArray(0);  
-	glVertexAttribPointer(0, DIMENSION, GL_FLOAT, GL_FALSE, DIMENSION * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, FLOATS_IN_VERTEX * sizeof(float), (void*)0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, FLOATS_IN_COLOR, GL_FLOAT, GL_FALSE, FLOATS_IN_VERTEX * sizeof(float), (void*)(FLOATS_IN_POSITION * sizeof(float)));
 
 }
 

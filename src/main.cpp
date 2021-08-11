@@ -48,15 +48,19 @@ int main(int argc, char **argv) {
 	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
 
-	
-	uint numVertices = 6;
+
+	float x = 10.0f;
+	float y = 10.0f;
+	float width = 100.0f;
+	uint numVertices = 30;
 	float vertices[] = {
-		1.0f,  90.0f,
-		90.0f, 90.0f,
-		90.0f, 1.0f,
-		1.0f, 1.0f,
-		90.0f, 1.0f,
-		1.0f, 90.0f
+		x,  	 y,       	1.0f, 0.0f, 0.0f,
+		x+width, y,  	  	0.0f, 1.0f, 0.0f, 
+		x, 		 y+width, 	0.0f, 0.0f, 1.0f,
+
+		x,  	 y+width, 	0.0f, 0.0f, 1.0f,
+		x+width, y+width, 	0.0f, 1.0f, 0.0f,
+		x+width, y,    		1.0f, 0.0f, 0.0f
 	};  
 
 
@@ -71,8 +75,8 @@ int main(int argc, char **argv) {
 	Renderer renderer;
 	renderer.AppendDraw(&bl);
 
-	float r = 0.0f;
-	float increment = -0.01f;
+	// float r = 0.0f;
+	// float increment = -0.01f;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -81,10 +85,10 @@ int main(int argc, char **argv) {
         // glClear(GL_COLOR_BUFFER_BIT);
 
 		// bl.Draw();
-		if (r >= 1.0f || r <= 0.0f) increment = -increment;
-		r += increment;
-		bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
-		bl.GetShader().SetUniform2f("u_Pos", 100.0f, 100.0f);
+		// if (r >= 1.0f || r <= 0.0f) increment = -increment;
+		// r += increment;
+		// bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
+
 		renderer.Clear(100, 100, 100);
 		renderer.Draw();
 		
