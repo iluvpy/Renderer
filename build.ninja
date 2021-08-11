@@ -9,7 +9,6 @@ rule lnk
 # build libs
 build obj/shader.o : cc src/Shader.cpp
 build obj/vertexbuffer.o: cc src/VertexBuffer.cpp
-build obj/indexbuffer.o: cc src/IndexBuffer.cpp
 build obj/bufferhandler.o: cc src/BufferHandler.cpp
 build obj/renderer.o: cc src/Renderer.cpp
 build obj/utils.o: cc src/Utils.cpp

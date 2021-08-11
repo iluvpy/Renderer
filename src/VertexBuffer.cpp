@@ -8,8 +8,6 @@ VertexBuffer::VertexBuffer() {}
 VertexBuffer::VertexBuffer(const void *vertices, uint numVertices) 
 : m_numVertices(numVertices)
 {
-	glGenVertexArrays(1, &m_vao);  
-	glBindVertexArray(m_vao);
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -24,7 +22,10 @@ VertexBuffer::VertexBuffer(const void *vertices, uint numVertices)
 
 
 void VertexBuffer::Bind() const {
-	glBindVertexArray(m_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	glEnableVertexAttribArray(0);  
+	glVertexAttribPointer(0, DIMENSION, GL_FLOAT, GL_FALSE, DIMENSION * sizeof(float), (void*)0);
+
 }
 
 void VertexBuffer::Unbind() const {
@@ -35,8 +36,11 @@ void VertexBuffer::Draw() const {
 	glDrawArrays(GL_TRIANGLES, 0, m_numVertices);
 }
 
+uint VertexBuffer::GetCount() const {
+	return m_numVertices;
+}
+
 
 VertexBuffer::~VertexBuffer() {
 	glDeleteBuffers(1, &m_vbo);
-	glDeleteVertexArrays(1, &m_vao);
 }

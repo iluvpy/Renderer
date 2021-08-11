@@ -7,7 +7,6 @@
 
 #include "Shader.hpp"
 #include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
 #include "BufferHandler.hpp"
 #include "Renderer.hpp"
 
@@ -50,28 +49,24 @@ int main(int argc, char **argv) {
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
 
 	
-	uint numVertices = 4;
+	uint numVertices = 6;
 	float vertices[] = {
 		1.0f,  90.0f,
 		90.0f, 90.0f,
 		90.0f, 1.0f,
-		1.0f,  1.0f
+		1.0f, 1.0f,
+		90.0f, 1.0f,
+		1.0f, 90.0f
 	};  
 
-	uint index_count = 6;
-	uint indices[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
 
-	IndexBuffer ibo(indices, index_count);
 	VertexBuffer buffer(vertices, numVertices);
 
 	glm::mat4 ortho = glm::ortho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f);
 
 	Shader color(BASIC_FS, BASIC_VS);
-	color.SetUniformMatrix4f("u_Ortho", ortho);
-	BufferHandler bl(buffer, ibo, color);	
+	color.SetUniformMatrix4f("u_Proj", ortho);
+	BufferHandler bl(buffer, color);	
 
 	Renderer renderer;
 	renderer.AppendDraw(&bl);
@@ -89,6 +84,7 @@ int main(int argc, char **argv) {
 		if (r >= 1.0f || r <= 0.0f) increment = -increment;
 		r += increment;
 		bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
+		bl.GetShader().SetUniform2f("u_Pos", 100.0f, 100.0f);
 		renderer.Clear(100, 100, 100);
 		renderer.Draw();
 		

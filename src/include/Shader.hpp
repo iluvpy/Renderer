@@ -20,6 +20,7 @@ public:
 	GLuint GetProgram();
 	GLuint GetUniformLocation(const std::string& name);
 	void SetUniform4f(const std::string& name, float f1, float f2, float f3, float f4);
+	void SetUniform2f(const std::string& name, float f1, float f2);
 	void SetUniformMatrix4f(const std::string& name, glm::mat4 matrix);
 	~Shader();
 private:

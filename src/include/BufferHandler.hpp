@@ -1,7 +1,6 @@
 #pragma once
 
 #include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
 #include "types.hpp"
 #include "Shader.hpp"
 
@@ -9,7 +8,7 @@
 class BufferHandler {
 public:
 	BufferHandler();
-	BufferHandler(const VertexBuffer& vb, const IndexBuffer& ib, const Shader& sh);
+	BufferHandler(const VertexBuffer& vb, const Shader& sh);
 	void Bind() const;
 	void Unbind() const;
 	void Draw() const;
@@ -20,6 +19,5 @@ public:
 private:
 
 	VertexBuffer m_vb;
-	IndexBuffer m_ib;
 	Shader m_shader;
 };
