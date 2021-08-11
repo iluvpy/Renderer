@@ -7,11 +7,12 @@
 
 #include "Shader.hpp"
 #include "VertexBuffer.hpp"
-#include "BufferHandler.hpp"
 #include "Renderer.hpp"
 
 #define WINDOW_WIDTH 1920.0f
 #define WINDOW_HEIGHT 1080.0f
+#define width WINDOW_WIDTH
+#define height WINDOW_HEIGHT
 
 void GLClearError() {
 	while (glGetError() != GL_NO_ERROR);
@@ -35,6 +36,9 @@ int main(int argc, char **argv) {
         return -1;
     }
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+
 	glfwSwapInterval(1);
 	/* Make the window's context current */
     glfwMakeContextCurrent(window);
@@ -45,39 +49,38 @@ int main(int argc, char **argv) {
 		glfwTerminate();
     	return -1;
 	}
+
+
 	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
 
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); // wireframe mode
 
-	float x = 10.0f;
-	float y = 10.0f;
-	float width = 100.0f;
-	uint numVertices = 30;
-	float vertices[] = {
-		x,  	 y,       	1.0f, 0.0f, 0.0f,
-		x+width, y,  	  	0.0f, 1.0f, 0.0f, 
-		x, 		 y+width, 	0.0f, 0.0f, 1.0f,
+	// float w = 400.0f;
+	// float h = 400.0f;
+	// float x = width/2.0f-w/2.0f;
+	// float y = height/2.0f-h/2.0f;
+	// uint numVertices = 30;
+	// float vertices[] = {
+	// 	x,   y,     1.0f, 0.0f, 0.0f,
+	// 	x+w, y,     0.0f, 1.0f, 0.0f, 
+	// 	x, 	 y+h, 	0.0f, 0.0f, 1.0f,
 
-		x,  	 y+width, 	0.0f, 0.0f, 1.0f,
-		x+width, y+width, 	0.0f, 1.0f, 0.0f,
-		x+width, y,    		1.0f, 0.0f, 0.0f
-	};  
+	// 	x,   y+h, 	0.0f, 0.0f, 1.0f,
+	// 	x+w, y+h, 	1.0f, 0.0f, 0.0f,
+	// 	x+w, y,    	0.0f, 1.0f, 0.0f
+	// };  
 
 
-	VertexBuffer buffer(vertices, numVertices);
+	// glm::mat4 ortho = glm::ortho(0.0f, width, height, 0.0f);
 
-	glm::mat4 ortho = glm::ortho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f);
+	// VertexBuffer buffer(vertices, numVertices);
+	// Shader sh;
+	// sh.Init(BASIC_FS, BASIC_VS);
+	// sh.SetUniformMatrix4f("u_Proj", ortho);
 
-	Shader color(BASIC_FS, BASIC_VS);
-	color.SetUniformMatrix4f("u_Proj", ortho);
-	BufferHandler bl(buffer, color);	
-
-	Renderer renderer;
-	renderer.AppendDraw(&bl);
-
-	// float r = 0.0f;
-	// float increment = -0.01f;
-    /* Loop until the user closes the window */
+	Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT);
+	
     while (!glfwWindowShouldClose(window))
     {
         // /* Render here */
@@ -90,15 +93,24 @@ int main(int argc, char **argv) {
 		// bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
 
 		renderer.Clear(100, 100, 100);
-		renderer.Draw();
-		
-		
+		// draw here
+		//renderer.DrawRect(r1);
+
+		// sh.Bind();
+		// buffer.Bind();
+		// glDrawArrays(GL_TRIANGLES, 0, buffer.GetCount());
+		// sh.Unbind();
+		// buffer.Unbind();
+
+		renderer.Update();
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
+	std::cout << glGetError() << std::endl;
     glfwTerminate();
     return 0;
 }

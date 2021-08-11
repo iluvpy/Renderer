@@ -1,19 +1,24 @@
 #pragma once
 
 #include <vector>
-#include "BufferHandler.hpp"
+#include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+#include "VertexBuffer.hpp"
+#include "Shader.hpp"
+#include "Rect.hpp"
 
 class Renderer {
 public:
 
-	Renderer();
-	void AppendDraw(BufferHandler *handler);
-	void Draw();
+	Renderer(float width, float height);
+	void Update(); // draws stored 
+	void DrawRect(const Rect& rect);
 	void Clear(float r=255.0f, float g=255.0f, float b=255.0f, float a=255.0f);
-	void Update();
 	~Renderer();
 
 private:
-	std::vector<BufferHandler*> m_buffers;
+	VertexBuffer m_buf;
+	Shader m_shader;
+	std::vector<float> m_data;
 	
 };

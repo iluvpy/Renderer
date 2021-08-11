@@ -36,6 +36,12 @@ void VertexBuffer::Bind() const {
 
 }
 
+void VertexBuffer::BindNewData(const void *vertices, uint numVertices) {
+	m_numVertices = numVertices;
+	Bind();
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * FLOATS_IN_VERTEX, vertices, GL_STATIC_DRAW);
+}
+
 void VertexBuffer::Unbind() const {
 	glBindVertexArray(0);
 }
