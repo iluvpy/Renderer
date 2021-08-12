@@ -55,53 +55,43 @@ int main(int argc, char **argv) {
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
 
 	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); // wireframe mode
-
-	// float w = 400.0f;
-	// float h = 400.0f;
-	// float x = width/2.0f-w/2.0f;
-	// float y = height/2.0f-h/2.0f;
-	// uint numVertices = 30;
-	// float vertices[] = {
-	// 	x,   y,     1.0f, 0.0f, 0.0f,
-	// 	x+w, y,     0.0f, 1.0f, 0.0f, 
-	// 	x, 	 y+h, 	0.0f, 0.0f, 1.0f,
-
-	// 	x,   y+h, 	0.0f, 0.0f, 1.0f,
-	// 	x+w, y+h, 	1.0f, 0.0f, 0.0f,
-	// 	x+w, y,    	0.0f, 1.0f, 0.0f
-	// };  
-
-
-	// glm::mat4 ortho = glm::ortho(0.0f, width, height, 0.0f);
-
-	// VertexBuffer buffer(vertices, numVertices);
-	// Shader sh;
-	// sh.Init(BASIC_FS, BASIC_VS);
-	// sh.SetUniformMatrix4f("u_Proj", ortho);
-
-	Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT);
 	
+
+	VertexBuffer buffer = Renderer::GenerateRenderingBuffer();
+	Shader sh = Renderer::GenerateRenderingShader(width, height);
+	Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT, &sh, &buffer);
+
+	Rect r1(100, 100, 100, 100, Color(0, 0, 0));
+	float increment = 15.0f;
+	float w = 10.0f;
+	float h = 10.0f;
+	float x = 1920.0f/2.0f-w/2.0f;
+	float y = 1080.0f/2.0f-h/2.0f;
     while (!glfwWindowShouldClose(window))
     {
-        // /* Render here */
-		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        // glClear(GL_COLOR_BUFFER_BIT);
-
-		// bl.Draw();
-		// if (r >= 1.0f || r <= 0.0f) increment = -increment;
-		// r += increment;
-		// bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
-
+    
 		renderer.Clear(100, 100, 100);
-		// draw here
-		//renderer.DrawRect(r1);
+		// render stuff here
+	
+		renderer.DrawVertex(x,   y, 	Color(255.0f));
+		renderer.DrawVertex(x+w, y,  	Color(0.0f, 255.0f));
+		renderer.DrawVertex(x,   y+h, 	Color(0.0f, 0.0f, 255.0f));
 
-		// sh.Bind();
-		// buffer.Bind();
-		// glDrawArrays(GL_TRIANGLES, 0, buffer.GetCount());
-		// sh.Unbind();
-		// buffer.Unbind();
+		renderer.DrawVertex(x, 	 y+h, Color(0.0f, 0.0f, 255.0f));
+		renderer.DrawVertex(x+w, y+h, Color(255.0f));
+		renderer.DrawVertex(x+w, y,   Color(0.0f, 255.0f));
 
+		renderer.DrawRect(r1);
+		r1.SetX(r1.GetX()+increment);
+		if (r1.GetX()+r1.GetW() > width || r1.GetX() <= 0) {increment = -increment;}
+
+
+		w += 1.0f;
+		h += 1.0f;
+		x = 1920.0f/2.0f-w/2.0f;
+		y = 1080.0f/2.0f-h/2.0f;
+
+		// update renderer 
 		renderer.Update();
 
         /* Swap front and back buffers */
