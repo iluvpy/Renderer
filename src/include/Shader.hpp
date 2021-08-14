@@ -1,6 +1,6 @@
 #pragma once
 #include "types.hpp"
-#include "glad/glad.h"
+#include <GL/glew.h>
 
 #include <string>
 #include <unordered_map>

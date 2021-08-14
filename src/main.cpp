@@ -1,13 +1,12 @@
 #include <iostream>
 #include <filesystem>
 
-#include "glad/glad.h"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.hpp"
 #include "VertexBuffer.hpp"
-#include "BufferHandler.hpp"
 #include "Renderer.hpp"
 
 #define WINDOW_WIDTH 1920.0f
@@ -40,65 +39,64 @@ int main(int argc, char **argv) {
     glfwMakeContextCurrent(window);
 
 	// load all OpenGL function after creating GL context
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    	std::cout << "Failed to initialize GLAD" << std::endl;
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
 		glfwTerminate();
-    	return -1;
 	}
+
+
 	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
 
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); // wireframe mode
+	
 
-	float x = 10.0f;
-	float y = 10.0f;
-	float width = 100.0f;
-	uint numVertices = 30;
-	float vertices[] = {
-		x,  	 y,       	1.0f, 0.0f, 0.0f,
-		x+width, y,  	  	0.0f, 1.0f, 0.0f, 
-		x, 		 y+width, 	0.0f, 0.0f, 1.0f,
+	VertexBuffer buffer = Renderer::GenerateRenderingBuffer();
+	Shader sh = Renderer::GenerateRenderingShader(WINDOW_WIDTH, WINDOW_HEIGHT);
+	Renderer renderer(&sh, &buffer);
 
-		x,  	 y+width, 	0.0f, 0.0f, 1.0f,
-		x+width, y+width, 	0.0f, 1.0f, 0.0f,
-		x+width, y,    		1.0f, 0.0f, 0.0f
-	};  
+	Rect r1(100, 100, 100, 100, Color(140, 40, 255));
+	float increment = 15.0f;
+	float w = 100.0f;
+	float h = 100.0f;
+	float x = 500.0f;
+	float y = 0.0f;
 
+	// render stuff here
 
-	VertexBuffer buffer(vertices, numVertices);
-
-	glm::mat4 ortho = glm::ortho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f);
-
-	Shader color(BASIC_FS, BASIC_VS);
-	color.SetUniformMatrix4f("u_Proj", ortho);
-	BufferHandler bl(buffer, color);	
-
-	Renderer renderer;
-	renderer.AppendDraw(&bl);
-
-	// float r = 0.0f;
-	// float increment = -0.01f;
-    /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        // /* Render here */
-		// glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        // glClear(GL_COLOR_BUFFER_BIT);
+		renderer.Clear(100, 100, 100);	
 
-		// bl.Draw();
-		// if (r >= 1.0f || r <= 0.0f) increment = -increment;
-		// r += increment;
-		// bl.GetShader().SetUniform4f("u_Color", r, 0.8f, 1.0f, 1.0f);
 
-		renderer.Clear(100, 100, 100);
-		renderer.Draw();
+		for (int i = 0; i+h < WINDOW_HEIGHT; i+=h) {
+			renderer.DrawVertex(x+i,   y+i, 	Color(255.0f));
+			renderer.DrawVertex(x+i+w, y+i,  	Color(0.0f, 255.0f));
+			renderer.DrawVertex(x+i,   y+i+h, 	Color(0.0f, 0.0f, 255.0f));
+
+			renderer.DrawVertex(x+i, 	 y+i+h, Color(0.0f, 0.0f, 255.0f));
+			renderer.DrawVertex(x+i+w, y+i+h, Color(255.0f));
+			renderer.DrawVertex(x+i+w, y+i,   Color(0.0f, 255.0f));
+		}
+
+
+		renderer.DrawRect(r1);
+		r1.SetX(r1.GetX()+increment);
+		if (r1.GetX()+r1.GetW() > WINDOW_WIDTH || r1.GetX() <= 0) {increment = -increment;}
 		
-		
+
+
+		// update renderer 
+		renderer.Update();
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
     }
+	std::cout << glGetError() << std::endl;
     glfwTerminate();
     return 0;
 }

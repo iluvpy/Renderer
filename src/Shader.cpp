@@ -2,7 +2,8 @@
 #include <iostream>
 #include "Shader.hpp"
 
-Shader::Shader() {}
+Shader::Shader() 
+{}
 
 Shader::Shader(const std::string& fragPath, const std::string& vertPath) {
 	Init(fragPath, vertPath);
