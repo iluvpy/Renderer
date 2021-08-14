@@ -1,5 +1,5 @@
 cflags = -std=c++17 -O0 -Wall -Werror -g -DDEBUG -I./src/include/ -I./src/
-lflags =  -lglfw -lGL -ldl
+lflags =  -lglfw -lGL -lGLEW
 cxx = clang++
 rule cc 
   command = $cxx -c $in -o $out $cflags
@@ -17,4 +17,4 @@ build obj/color.o: cc src/Color.cpp
 build obj/main.o : cc src/main.cpp
 
 # build application
-build client : lnk obj/main.o obj/color.o obj/rect.o obj/utils.o obj/renderer.o obj/indexbuffer.o obj/vertexbuffer.o obj/shader.o obj/glad.o 
+build client : lnk obj/main.o obj/color.o obj/rect.o obj/utils.o obj/renderer.o obj/vertexbuffer.o obj/shader.o

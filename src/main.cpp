@@ -1,7 +1,7 @@
 #include <iostream>
 #include <filesystem>
 
-#include "glad/glad.h"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 	}
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", glfwGetPrimaryMonitor(), NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", NULL, NULL);
     if (!window)
     {	
 		std::cout << "could not create glfw window\n";
@@ -34,18 +34,15 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-
 	glfwSwapInterval(1);
 	/* Make the window's context current */
     glfwMakeContextCurrent(window);
 
 	// load all OpenGL function after creating GL context
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    	std::cout << "Failed to initialize GLAD" << std::endl;
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
 		glfwTerminate();
-    	return -1;
 	}
 
 
@@ -59,8 +56,8 @@ int main(int argc, char **argv) {
 	Shader sh = Renderer::GenerateRenderingShader(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Renderer renderer(&sh, &buffer);
 
-	// Rect r1(100, 100, 100, 100, Color(0, 0, 0));
-	// float increment = 15.0f;
+	Rect r1(100, 100, 100, 100, Color(0, 0, 0));
+	float increment = 15.0f;
 	float w = 100.0f;
 	float h = 100.0f;
 	float x = 500.0f;
@@ -83,9 +80,11 @@ int main(int argc, char **argv) {
 			renderer.DrawVertex(x+i+w, y+i,   Color(0.0f, 255.0f));
 		}
 
-		// renderer.DrawRect(r1);
-		// r1.SetX(r1.GetX()+increment);
-		// if (r1.GetX()+r1.GetW() > WINDOW_WIDTH || r1.GetX() <= 0) {increment = -increment;}
+
+		renderer.DrawRect(r1);
+		r1.SetX(r1.GetX()+increment);
+		if (r1.GetX()+r1.GetW() > WINDOW_WIDTH || r1.GetX() <= 0) {increment = -increment;}
+		
 
 
 		// update renderer 
