@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 	}
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", NULL, NULL);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", glfwGetPrimaryMonitor(), NULL);
     if (!window)
     {	
 		std::cout << "could not create glfw window\n";
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
 	Shader sh = Renderer::GenerateRenderingShader(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Renderer renderer(&sh, &buffer);
 
-	Rect r1(100, 100, 100, 100, Color(0, 0, 0));
+	Rect r1(100, 100, 100, 100, Color(140, 40, 255));
 	float increment = 15.0f;
 	float w = 100.0f;
 	float h = 100.0f;
