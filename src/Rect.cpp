@@ -50,6 +50,7 @@ std::vector<float> Rect::GetAsVertexBufferData() const {
 		m_x,        m_y,       m_color.GetR(), m_color.GetG(), m_color.GetB(),
 		m_x+m_w,    m_y,       m_color.GetR(), m_color.GetG(), m_color.GetB(),
 		m_x, 	    m_y+m_h,   m_color.GetR(), m_color.GetG(), m_color.GetB(),
+        
 		m_x,        m_y+m_h,   m_color.GetR(), m_color.GetG(), m_color.GetB(),
         m_x+m_w,    m_y+m_h,   m_color.GetR(), m_color.GetG(), m_color.GetB(),
 		m_x+m_w,    m_y,       m_color.GetR(), m_color.GetG(), m_color.GetB(),

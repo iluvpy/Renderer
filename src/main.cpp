@@ -11,8 +11,6 @@
 
 #define WINDOW_WIDTH 1920.0f
 #define WINDOW_HEIGHT 1080.0f
-#define width WINDOW_WIDTH
-#define height WINDOW_HEIGHT
 
 void GLClearError() {
 	while (glGetError() != GL_NO_ERROR);
@@ -58,38 +56,37 @@ int main(int argc, char **argv) {
 	
 
 	VertexBuffer buffer = Renderer::GenerateRenderingBuffer();
-	Shader sh = Renderer::GenerateRenderingShader(width, height);
-	Renderer renderer(WINDOW_WIDTH, WINDOW_HEIGHT, &sh, &buffer);
+	Shader sh = Renderer::GenerateRenderingShader(WINDOW_WIDTH, WINDOW_HEIGHT);
+	Renderer renderer(&sh, &buffer);
 
-	Rect r1(100, 100, 100, 100, Color(0, 0, 0));
-	float increment = 15.0f;
-	float w = 10.0f;
-	float h = 10.0f;
-	float x = 1920.0f/2.0f-w/2.0f;
-	float y = 1080.0f/2.0f-h/2.0f;
+	// Rect r1(100, 100, 100, 100, Color(0, 0, 0));
+	// float increment = 15.0f;
+	float w = 100.0f;
+	float h = 100.0f;
+	float x = 500.0f;
+	float y = 0.0f;
+
+	// render stuff here
+
     while (!glfwWindowShouldClose(window))
     {
-    
-		renderer.Clear(100, 100, 100);
-		// render stuff here
-	
-		renderer.DrawVertex(x,   y, 	Color(255.0f));
-		renderer.DrawVertex(x+w, y,  	Color(0.0f, 255.0f));
-		renderer.DrawVertex(x,   y+h, 	Color(0.0f, 0.0f, 255.0f));
-
-		renderer.DrawVertex(x, 	 y+h, Color(0.0f, 0.0f, 255.0f));
-		renderer.DrawVertex(x+w, y+h, Color(255.0f));
-		renderer.DrawVertex(x+w, y,   Color(0.0f, 255.0f));
-
-		renderer.DrawRect(r1);
-		r1.SetX(r1.GetX()+increment);
-		if (r1.GetX()+r1.GetW() > width || r1.GetX() <= 0) {increment = -increment;}
+		renderer.Clear(100, 100, 100);	
 
 
-		w += 1.0f;
-		h += 1.0f;
-		x = 1920.0f/2.0f-w/2.0f;
-		y = 1080.0f/2.0f-h/2.0f;
+		for (int i = 0; i+h < WINDOW_HEIGHT; i+=h) {
+			renderer.DrawVertex(x+i,   y+i, 	Color(255.0f));
+			renderer.DrawVertex(x+i+w, y+i,  	Color(0.0f, 255.0f));
+			renderer.DrawVertex(x+i,   y+i+h, 	Color(0.0f, 0.0f, 255.0f));
+
+			renderer.DrawVertex(x+i, 	 y+i+h, Color(0.0f, 0.0f, 255.0f));
+			renderer.DrawVertex(x+i+w, y+i+h, Color(255.0f));
+			renderer.DrawVertex(x+i+w, y+i,   Color(0.0f, 255.0f));
+		}
+
+		// renderer.DrawRect(r1);
+		// r1.SetX(r1.GetX()+increment);
+		// if (r1.GetX()+r1.GetW() > WINDOW_WIDTH || r1.GetX() <= 0) {increment = -increment;}
+
 
 		// update renderer 
 		renderer.Update();

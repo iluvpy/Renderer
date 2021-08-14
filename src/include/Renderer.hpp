@@ -10,7 +10,7 @@
 class Renderer {
 public:
 
-	Renderer(float width, float height, Shader *shader, VertexBuffer *buf);
+	Renderer(Shader *shader, VertexBuffer *buf);
 	void Update(); // draws 
 	void DrawRect(const Rect& rect);
 	void DrawVertex(float x, float y, const Color& color);
@@ -23,5 +23,4 @@ private:
 	VertexBuffer *m_buf;
 	Shader *m_shader;
 	std::vector<float> m_data;
-	
 };

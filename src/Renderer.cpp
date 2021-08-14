@@ -1,7 +1,7 @@
 #include "Renderer.hpp"
 
 
-Renderer::Renderer(float width, float height, Shader *shader, VertexBuffer *buf) 
+Renderer::Renderer(Shader *shader, VertexBuffer *buf) 
 : m_buf(buf), m_shader(shader)
 {}
 
@@ -9,20 +9,23 @@ Renderer::Renderer(float width, float height, Shader *shader, VertexBuffer *buf)
 void Renderer::Update()  {
 
     m_buf->BindNewData(&m_data[0], m_data.size());
+    // remove old data
+    m_data.clear();
 
     m_shader->Bind();
     m_buf->Bind();
     glDrawArrays(GL_TRIANGLES, 0, m_buf->GetCount());
-    m_buf->Unbind();
     m_shader->Unbind();
+    m_buf->Unbind();
 
-    // remove old data
-    m_data.clear();
+    
+    
 }
 
 void Renderer::Clear(float r, float g, float b, float a) {
     glClearColor(r/255, g/255, b/255, a/255);
     glClear(GL_COLOR_BUFFER_BIT);
+ 
 }
 
 
@@ -45,7 +48,7 @@ void Renderer::DrawVertex(float x, float y, const Color& color) {
 VertexBuffer Renderer::GenerateRenderingBuffer() {
 	uint numVertices = 5;
 	float vertices[] = {
-		.0f, .0f, .0f, .0f, .0f
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 	};  
     return VertexBuffer(vertices, numVertices);
 }
