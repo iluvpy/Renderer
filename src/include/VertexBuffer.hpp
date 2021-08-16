@@ -7,8 +7,8 @@ class VertexBuffer {
 
 public:
 	VertexBuffer();
-	VertexBuffer(const void *vertices, uint numVertices);
-	void BindNewData(const void *vertices, uint numVertices);
+	VertexBuffer(const void *vertices, uint size);
+	void BindNewData(const void *vertices, uint size);
 	void Bind() const;
 	void Unbind() const;
 	void Draw() const;
@@ -18,5 +18,5 @@ public:
 private:
 
 	GLuint m_vbo;
-	uint m_numVertices;
+	uint m_size;
 };

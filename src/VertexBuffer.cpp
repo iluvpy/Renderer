@@ -6,13 +6,13 @@
 #define FLOATS_IN_COLOR 3
 
 VertexBuffer::VertexBuffer() {}
-VertexBuffer::VertexBuffer(const void *vertices, uint numVertices) 
-: m_numVertices(numVertices)
+VertexBuffer::VertexBuffer(const void *vertices, uint size) 
+: m_size(size)
 {
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * FLOATS_IN_VERTEX, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size, vertices, GL_STATIC_DRAW);
 
 	// Bind data to vao
 	glEnableVertexAttribArray(0);  
@@ -36,10 +36,10 @@ void VertexBuffer::Bind() const {
 
 }
 
-void VertexBuffer::BindNewData(const void *vertices, uint numVertices) {
-	m_numVertices = numVertices;
+void VertexBuffer::BindNewData(const void *vertices, uint size) {
+	m_size = size;
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * FLOATS_IN_VERTEX, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size, vertices, GL_STATIC_DRAW);
 }
 
 void VertexBuffer::Unbind() const {
@@ -47,11 +47,11 @@ void VertexBuffer::Unbind() const {
 }
 
 void VertexBuffer::Draw() const {
-	glDrawArrays(GL_TRIANGLES, 0, m_numVertices);
+	glDrawArrays(GL_TRIANGLES, 0, m_size);
 }
 
 uint VertexBuffer::GetCount() const {
-	return m_numVertices;
+	return m_size;
 }
 
 
