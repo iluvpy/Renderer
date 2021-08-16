@@ -13,6 +13,7 @@ public:
     float GetW() const;
     float GetH() const;
     Color GetColor() const;
+    Color& GetColorRef();
     void SetX(float x);
     void SetY(float y);
     void SetW(float w);

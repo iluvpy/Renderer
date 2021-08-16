@@ -29,6 +29,10 @@ Color Rect::GetColor() const {
     return m_color;
 }
 
+Color& Rect::GetColorRef() {
+    return m_color;
+}
+
 void Rect::SetX(float x) {
     m_x = x;
 }
