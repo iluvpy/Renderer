@@ -8,6 +8,7 @@
 #include "Shader.hpp"
 #include "VertexBuffer.hpp"
 #include "Renderer.hpp"
+#include "Triangle.hpp"
 
 #define WINDOW_WIDTH 1920.0f
 #define WINDOW_HEIGHT 1080.0f
@@ -62,7 +63,10 @@ int main(int argc, char **argv) {
 	float h = 100.0f;
 	float x = 500.0f;
 	float y = 0.0f;
+	float angle = 0.0f;
+	float angle_incremnt = 1.0f;
 
+	Triangle tri1(200, 400, 200, 200);
 	// render stuff here
 
     while (!glfwWindowShouldClose(window))
@@ -82,11 +86,14 @@ int main(int argc, char **argv) {
 
 
 		renderer.DrawRect(r1);
-		r1.SetX(r1.GetX()+increment);
-		if (r1.GetX()+r1.GetW() > WINDOW_WIDTH || r1.GetX() <= 0) {increment = -increment;}
+		r1.GetRectRef().x = r1.GetRect().x+increment;
+		if (r1.GetRect().x+r1.GetRect().w > WINDOW_WIDTH || r1.GetRect().x <= 0) {increment = -increment;}
 		
 
-
+		renderer.DrawTriangle(tri1);
+		tri1.Rotate(angle);
+		if (angle >= 360.0f || angle <= 0.0f) angle_incremnt = -angle_incremnt;
+		angle += angle_incremnt;
 		// update renderer 
 		renderer.Update();
 

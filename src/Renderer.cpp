@@ -30,8 +30,14 @@ void Renderer::Clear(float r, float g, float b, float a) {
 
 
 void Renderer::DrawRect(const Rect& rect) {
-    for (float float_ : rect.GetAsVertexBufferData()) {
-        m_data.push_back(float_);
+    for (float f : rect.GetAsVertexBufferData()) {
+        m_data.push_back(f);
+    }
+}
+
+void Renderer::DrawTriangle(const Triangle& triangle) {
+    for (float f : triangle.GetAsVertexBufferData()) {
+        m_data.push_back(f);
     }
 }
 
