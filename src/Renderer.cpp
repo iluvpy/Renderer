@@ -8,8 +8,9 @@ Renderer::Renderer(Shader *shader, VertexBuffer *buf)
 
 void Renderer::Update()  {
 
+	// copies data into gpu
     m_buf->BindNewData(&m_data[0], m_data.size());
-    // remove old data
+    // free old data
     m_data.clear();
 
     m_shader->Bind();

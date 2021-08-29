@@ -63,10 +63,11 @@ int main(int argc, char **argv) {
 	float h = 100.0f;
 	float x = 500.0f;
 	float y = 0.0f;
-	float angle = 0.0f;
-	float angle_incremnt = 1.0f;
 
 	Triangle tri1(200, 400, 200, 200);
+	tri1.SetV1Color(Color(255.0f, 0.0f, 0.0f));
+	tri1.SetV2Color(Color(0.0f, 255.0f, 0.0f));
+	tri1.SetV3Color(Color(0.0f, 0.0f, 255.0f));
 	// render stuff here
 
     while (!glfwWindowShouldClose(window))
@@ -91,9 +92,6 @@ int main(int argc, char **argv) {
 		
 
 		renderer.DrawTriangle(tri1);
-		tri1.Rotate(angle);
-		if (angle >= 360.0f || angle <= 0.0f) angle_incremnt = -angle_incremnt;
-		angle += angle_incremnt;
 		// update renderer 
 		renderer.Update();
 

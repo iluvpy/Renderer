@@ -58,19 +58,19 @@ void Triangle::SetV3XY(float x, float y) {
 void Triangle::SetV1Color(const Color& color) {
     m_vertices[2] = color.GetR();
     m_vertices[3] = color.GetG();
-    m_vertices[4] = color.GetR();
+    m_vertices[4] = color.GetB();
 }
 
 void Triangle::SetV2Color(const Color& color) {
     m_vertices[7] = color.GetR();
     m_vertices[8] = color.GetG();
-    m_vertices[9] = color.GetR();
+    m_vertices[9] = color.GetB();
 }
 
 void Triangle::SetV3Color(const Color& color) {
     m_vertices[12] = color.GetR();
     m_vertices[13] = color.GetG();
-    m_vertices[14] = color.GetR();
+    m_vertices[14] = color.GetB();
 }
 
 void Triangle::SetV1X(float x) {

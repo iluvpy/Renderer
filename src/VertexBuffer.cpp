@@ -11,8 +11,7 @@ VertexBuffer::VertexBuffer(const void *vertices, uint size)
 {
 
 	glGenBuffers(1, &m_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * size, vertices, GL_STATIC_DRAW);
+	BindNewData(vertices, size);
 
 	// Bind data to vao
 	glEnableVertexAttribArray(0);  
