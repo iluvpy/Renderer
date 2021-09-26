@@ -1,5 +1,5 @@
 #include "Renderer.hpp"
-
+#include "Window.hpp"
 
 Renderer::Renderer(Shader *shader, VertexBuffer *buf) 
 : m_buf(buf), m_shader(shader)
@@ -62,8 +62,8 @@ VertexBuffer Renderer::GenerateRenderingBuffer() {
 
 // creates a basic shader predefined for the renderer
 // note this function needs to be called in the main function 
-Shader Renderer::GenerateRenderingShader(float window_width, float window_height) {
-    glm::mat4 ortho = glm::ortho(0.0f, window_width, window_height, 0.0f);
+Shader Renderer::GenerateRenderingShader(Window *window) {
+    glm::mat4 ortho = glm::ortho(0.0f, (float)window->GetWidth(), (float)window->GetHeight(), 0.0f);
 	Shader sh;
 	sh.Init(BASIC_FS, BASIC_VS);
 	sh.SetUniformMatrix4f("u_Proj", ortho);

@@ -9,16 +9,16 @@
 #include "VertexBuffer.hpp"
 #include "Renderer.hpp"
 #include "Triangle.hpp"
+#include "Window.hpp"
 
-#define WINDOW_WIDTH 1920.0f
-#define WINDOW_HEIGHT 1080.0f
+#define WINDOW_WIDTH 1280.0f
+#define WINDOW_HEIGHT 720.0f
 
 void GLClearError() {
 	while (glGetError() != GL_NO_ERROR);
 }
 
 int main(int argc, char **argv) {
-	GLFWwindow* window;
 
     /* Initialize the includerary */
     if (!glfwInit()) {
@@ -26,35 +26,13 @@ int main(int argc, char **argv) {
         return -1;
 	}
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer", glfwGetPrimaryMonitor(), NULL);
-    if (!window)
-    {	
-		std::cout << "could not create glfw window\n";
-        glfwTerminate();
-        return -1;
-    }
-
-	glfwSwapInterval(1);
-	/* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
-	// load all OpenGL function after creating GL context
-	GLenum err = glewInit();
-	if (GLEW_OK != err) {
-		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
-		glfwTerminate();
-	}
 
 
-	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
-	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
-
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); // wireframe mode
 	
 
+	Window window(WINDOW_WIDTH, WINDOW_HEIGHT, "Renderer");
 	VertexBuffer buffer = Renderer::GenerateRenderingBuffer();
-	Shader sh = Renderer::GenerateRenderingShader(WINDOW_WIDTH, WINDOW_HEIGHT);
+	Shader sh = Renderer::GenerateRenderingShader(&window);
 	Renderer renderer(&sh, &buffer);
 
 	Rect r1(100, 100, 100, 100, Color(140, 40, 255));
@@ -68,9 +46,12 @@ int main(int argc, char **argv) {
 	tri1.SetV1Color(Color(255.0f, 0.0f, 0.0f));
 	tri1.SetV2Color(Color(0.0f, 255.0f, 0.0f));
 	tri1.SetV3Color(Color(0.0f, 0.0f, 255.0f));
-	// render stuff here
 
-    while (!glfwWindowShouldClose(window))
+	std::cout << "Opengl Version " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GPU " << glGetString(GL_RENDERER) << std::endl;
+	//glPolygonMode( GL_FRONT_AND_BACK, GL_LINE ); // wireframe mode
+
+    while (window.IsOpen())
     {
 		renderer.Clear(100, 100, 100);	
 
@@ -95,13 +76,9 @@ int main(int argc, char **argv) {
 		// update renderer 
 		renderer.Update();
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
+        window.Update();
     }
-	std::cout << glGetError() << std::endl;
+	std::cout << "last error: " << glGetError() << std::endl;
     glfwTerminate();
     return 0;
 }

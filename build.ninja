@@ -14,8 +14,9 @@ build obj/utils.o: cc src/Utils.cpp
 build obj/rect.o: cc src/Rect.cpp
 build obj/color.o: cc src/Color.cpp
 build obj/triangle.o: cc src/Triangle.cpp
+build obj/window.o: cc src/Window.cpp
 # build main file
 build obj/main.o : cc src/main.cpp
 
 # build application
-build client : lnk obj/main.o obj/triangle.o obj/color.o obj/rect.o obj/utils.o obj/renderer.o obj/vertexbuffer.o obj/shader.o
+build client : lnk obj/main.o obj/window.o obj/triangle.o obj/color.o obj/rect.o obj/utils.o obj/renderer.o obj/vertexbuffer.o obj/shader.o

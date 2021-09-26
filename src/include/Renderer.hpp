@@ -7,7 +7,7 @@
 #include "Shader.hpp"
 #include "Rect.hpp"
 #include "Triangle.hpp"
-
+#include "Window.hpp"
 class Renderer {
 public:
 
@@ -18,7 +18,7 @@ public:
 	void DrawVertex(float x, float y, const Color& color);
 	void Clear(float r=255.0f, float g=255.0f, float b=255.0f, float a=255.0f);
 	static VertexBuffer GenerateRenderingBuffer();
-	static Shader GenerateRenderingShader(float window_width, float window_height);
+	static Shader GenerateRenderingShader(Window *window);
 	~Renderer();
 
 private:
