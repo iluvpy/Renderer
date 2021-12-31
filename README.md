@@ -17,9 +17,9 @@ this project is still in developement and might get a release in the next months
 ## Installation
 
 ### arch 
-	`sudo pacman clang glfw glew ninja glm`
+	sudo pacman -S clang glfw glew ninja glm
 ### debian
-	`sudo apt install clang ninja libglfw3-dev libglm-dev libglew-dev`
+	sudo apt install clang ninja libglfw3-dev libglm-dev libglew-dev
 
 ### Compilation
 run `ninja` in the terminal and everything should just compile.
